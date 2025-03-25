@@ -16,10 +16,20 @@ const chatHistory = chatList.map((chat) =>
   </div>
 );
 
-export default function ChatHistory() {
+const submitChatName = (props) => {
+  // 작성한 채팅 이름 서버에 전달
+
+  props.setAddChat(false);
+}
+export default function ChatHistory(props) {
   return (
     <div className='sidebar-chatHistory'>
       {chatHistory}
+      {props.isAddChat ? 
+      <form action="" onSubmit={()=>{submitChatName(props)}}>
+        <input className='chatHistory-input' type="text" placeholder="new Chat"/>
+      </form>
+      :<></>}
     </div>
   )
 }

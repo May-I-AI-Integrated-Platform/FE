@@ -54,6 +54,20 @@
     .chatHistory-chat:hover{
         background-color: #404040;
     }
+    
+    .chatHistory-input{
+        width: calc(100% - 20px);
+        height: 42px;
+        padding: 0px 10px;
+        font-size: 100%;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 520;
+        color: #FFFFFF;
+        outline: none;
+        border: 0;
+        border-radius: 10px;
+        background-color: #747474;
+    }
 }
 
 .sidebar-settingIcon{
