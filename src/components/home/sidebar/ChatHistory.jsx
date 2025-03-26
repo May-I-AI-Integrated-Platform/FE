@@ -10,8 +10,6 @@ let chatList = [
   {id: 5, name: '부분함수 종속성'},
 ];
 
-
-
 const submitChatName = (props) => {
   // 작성한 채팅 이름 서버에 전달
 
@@ -20,6 +18,8 @@ const submitChatName = (props) => {
 export default function ChatHistory(props) {
   const [currentChat, setCurrentChat] = useState(0);
   const location = useLocation();
+
+  //url 추출
   useEffect(() => {
     const urlList = location.pathname.split('/');
     if(urlList[1] == "chat")
@@ -27,6 +27,7 @@ export default function ChatHistory(props) {
     console.log(urlList[urlList.length - 1])
   }, [ location ])
 
+  //chat list 출력
   const chatHistory = chatList.map((chat) =>
     <Link className='chatHistory-chat' to={`/chat/${chat.id}`} style={currentChat == chat.id ? {backgroundColor:'#515151'} : {background:'none'}}>
       <p className='chat-name'>
