@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import '../../css/home/inputbar.css'
+import sendingIcon from '../../../image/sendingIcon.png'
 
 
-const Inputbar = ({ onSendMessage } ) => {
+const Inputbar = ({ onSendMessage }) => {
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
@@ -29,10 +30,7 @@ const Inputbar = ({ onSendMessage } ) => {
             className={`send-button ${!message.trim() ? 'disabled' : ''}`}
             disabled={!message.trim()}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 2L11 13" />
-              <path d="M22 2l-7 20-4-9-9-4 20-7z" />
-            </svg>
+            <img src={sendingIcon} alt="Send" width="40" height="40" />
           </button>
         </form>
       </div>
