@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <div className='home'>
       {isOpen ? <Sidebar setOpen={setOpen}/> : <></>}
-      <div className='home-contents'>
-          <Header />
+      <div className='home-contents' style={isOpen ? {width: '90%'}: {width: "100%"}}>
+          <Header isOpen={isOpen} setOpen={setOpen}/>
           <Chat />
           <Inputbar />
       </div>
