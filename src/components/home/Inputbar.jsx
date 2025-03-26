@@ -2,31 +2,30 @@ import React, { useState } from 'react';
 import '../../css/home/inputbar.css'
 
 
-const Inputbar = () => {
+const Inputbar = ({ onSendMessage } ) => {
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (message.trim()) {
-      setMessages([...messages, { id: Date.now(), text: message, sender: 'user' }]);
+      onSendMessage(message);
       setMessage('');
     }
   };
 
   return (
-    <div className='input-area'>
-      <div className='input-container'>
-        <form onSubmit={handleSubmit} className='message-form'>
+    <div className="input-area">
+      <div className="input-container">
+        <form onSubmit={handleSubmit} className="message-form">
           <input
             type="text"
-            className='message-input'
-            placeholder='텍스트를 입력해주세요'
+            className="message-input"
+            placeholder="텍스트를 입력해주세요"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
           <button
-            type='submit'
+            type="submit"
             className={`send-button ${!message.trim() ? 'disabled' : ''}`}
             disabled={!message.trim()}
           >
@@ -36,7 +35,6 @@ const Inputbar = () => {
             </svg>
           </button>
         </form>
-
       </div>
     </div>
   );
