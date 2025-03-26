@@ -17,22 +17,26 @@
     border-radius: 8px;
     max-width: 70%;
     word-wrap: break-word;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
   }
   
   .user-message {
-    background-color: #0066cc;
+    background-color: #515151;
     color: white;
-    align-self: flex-end; /* 오른쪽 정렬을 위해 추가 */
+    align-self: flex-end;
   }
   
   .bot-message {
-    background-color: #f1f0f0;
+    background-color: #303030;
     color: black;
-    align-self: flex-start; /* 왼쪽 정렬을 위해 추가 */
+    align-self: flex-start;
   }
   
   .no-messages {
     text-align: center;
     color: #999;
     margin-top: 20px;
+    font-size: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
   }
