@@ -1,4 +1,83 @@
 .contents-sidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 20%;
     background-color: #303030;
+    padding: 20px 30px;
+}
+
+.sidebar-chatHistory::-webkit-scrollbar{
+    overflow: hidden;
+}
+
+.sidebar-topIcon{
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .topIcon-newChat{
+        img{
+            width: 80%;
+            height: 80%;
+        }
+    }
+    .topIcon-sidebar{
+        img{
+            width: 75%;
+            height: 75%;
+        }
+    }
+}
+
+.sidebar-chatHistory{
+    height: calc(100vh - 170px);
+    overflow-y: scroll;
+    margin: 25px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    .chatHistory-chat{
+        display: flex;
+        align-items: center;
+        height: 42px;
+        min-height: 42px;
+        border-radius: 10px;
+        margin-bottom: 17px;
+        text-decoration: none;
+        .chat-name{
+            margin: 0px 10px;
+            font-size: 100%;
+            font-weight: 500;
+            color: #FFFFFF;
+            
+        }
+    }
+    .chatHistory-chat:hover{
+        background-color: #404040;
+    }
+    
+    .chatHistory-input{
+        width: calc(100% - 20px);
+        height: 42px;
+        padding: 0px 10px;
+        font-size: 100%;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 520;
+        color: #FFFFFF;
+        outline: none;
+        border: 0;
+        border-radius: 10px;
+        background-color: #747474;
+    }
+}
+
+.sidebar-settingIcon{
+    height: 40px;
+    .settingIcon-icon{
+        img{
+            width: 30px;
+            height: 30px;
+        }
+    }
 }
