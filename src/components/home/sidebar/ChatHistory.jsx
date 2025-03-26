@@ -31,7 +31,7 @@ export default function ChatHistory(props) {
   const chatHistory = chatList.map((chat) =>
     <Link className='chatHistory-chat' to={`/chat/${chat.id}`} style={currentChat == chat.id ? {backgroundColor:'#515151'} : {background:'none'}}>
       <p className='chat-name'>
-        {chat.name.length > 10 ? chat.name.slice(0,9) + "..." : chat.name}
+        {chat.name.length > 10 ? chat.name.slice(0,7) + "..." : chat.name}
       </p>
     </Link>
   );
