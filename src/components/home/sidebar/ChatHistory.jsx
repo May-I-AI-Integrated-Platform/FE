@@ -24,7 +24,6 @@ export default function ChatHistory(props) {
     const urlList = location.pathname.split('/');
     if(urlList[1] == "chat")
       setCurrentChat(parseInt(urlList[urlList.length - 1]));
-    console.log(urlList[urlList.length - 1])
   }, [ location ])
 
   //chat list 출력
