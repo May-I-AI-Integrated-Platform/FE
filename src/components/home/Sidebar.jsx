@@ -14,7 +14,7 @@ export default function Sidebar(props) {
         <ChatHistory isAddChat={isAddChat} setAddChat={setAddChat}/>
       </div>
       <div>
-        <SettingIcon />
+        <SettingIcon setSetting={props.setSetting}/>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../css/home/tokenSetting.css'
 
-export default function TokenSetting() {
+export default function TokenSetting(props) {
   return (
     <div className='tokenSetting-home'>
       <form action="" className='container-tokenSetting'>
@@ -23,7 +23,7 @@ export default function TokenSetting() {
           <input type="text" className='input-detail' />
         </div>
         <div className='button-container'>
-          <button className='cancel-button'>취소</button>
+          <button className='cancel-button' onClick={()=>{props.setSetting(false)}}>취소</button>
           <button type="submit" className='submit-button'>저장</button>
         </div>
       </form>
