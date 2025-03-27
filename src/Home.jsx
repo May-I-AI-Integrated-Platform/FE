@@ -4,6 +4,7 @@ import Sidebar from './components/home/Sidebar'
 import Chat from './components/home/Chat'
 import Inputbar from './components/home/Inputbar'
 import './css/home/home.css'
+import TokenSetting from './components/home/TokenSetting'
 
 export default function Home() {
   const [isOpen, setOpen] = useState(true);
@@ -16,6 +17,7 @@ export default function Home() {
           <Chat />
           <Inputbar />
       </div>
+      <TokenSetting />
     </div>
   )
 }
