@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import '../../css/home/header.css'
 import srcSidebarIcon from '../../../image/sidebarIcon.png'
 
+const userData = {
+  userId: 1,
+  name: "test",
+  email: "test@gmail.com",
+  profileImg: "https://umc7theatthis.s3.ap-northeast-2.amazonaws.com/mealimg/15a1bf57-665c-4d31-ba08-d573a7db4ad31739172128859.jpeg",
+}
+
 const Header = (props) => {
   const [activeTabs, setActiveTabs] = useState(['ChatGPT']);
 
@@ -46,6 +53,16 @@ const Header = (props) => {
         
         <div className="profile">
           <div className="profile-icon"></div>
+        </div>
+        <div className='modal-header'>
+          <div className='profile-modal'>
+            <img src={`${userData.profileImg}`} alt="" className='image-modal'/>
+            <div>
+              <p className='name-modal'>{`${userData.name}`}</p>
+              <p className='email-modal'>{`${userData.email}`}</p>
+            </div>
+          </div>
+          <button className='logout-modal'>로그아웃</button>
         </div>
     </header>
   );
