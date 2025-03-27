@@ -4,11 +4,13 @@ import ChatArea from './components/home/ChatArea'
 import Inputbar from './components/home/Inputbar'
 import Header from './components/home/Header'
 import './css/home/home.css'
+import TokenSetting from './components/home/TokenSetting'
 
 export default function Home() {
 
   const [messages, setMessages] = useState([]);
   const [isOpen, setOpen] = useState(true);
+  const [isSetting, setSetting] = useState(false);
 
   const handleSendMessage = (newMessage) => {
     setMessages([
@@ -23,12 +25,12 @@ export default function Home() {
 
   return (
     <div className='home'>
-    {isOpen ? <Sidebar setOpen={setOpen}/> : <></>}
-    <div className='home-contents'>
-            <Header />
-            <ChatArea messages={messages} />
-            <Inputbar onSendMessage={handleSendMessage}/>
-        </div>
+      {isOpen ? <Sidebar setOpen={setOpen}/> : <></>}
+      <div className='home-contents' style={isOpen ? {width: '90%'}: {width: "100%"}}>
+          <Header />
+          <ChatArea messages={messages} />
+          <Inputbar onSendMessage={handleSendMessage}/>
+      </div>
     </div>
   )
 }

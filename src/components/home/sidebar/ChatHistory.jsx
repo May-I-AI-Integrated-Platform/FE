@@ -24,14 +24,13 @@ export default function ChatHistory(props) {
     const urlList = location.pathname.split('/');
     if(urlList[1] == "chat")
       setCurrentChat(parseInt(urlList[urlList.length - 1]));
-    console.log(urlList[urlList.length - 1])
   }, [ location ])
 
   //chat list 출력
   const chatHistory = chatList.map((chat) =>
-    <Link className='chatHistory-chat' to={`/chat/${chat.id}`} style={currentChat == chat.id ? {backgroundColor:'#515151'} : {background:'none'}}>
+    <Link className='chatHistory-chat' to={`/chat/${chat.id}`} style={currentChat == chat.id ? {backgroundColor:'#515151'} : null}>
       <p className='chat-name'>
-        {chat.name.length > 20 ? chat.name.slice(0,20) + "..." : chat.name}
+        {chat.name.length > 10 ? chat.name.slice(0,7) + "..." : chat.name}
       </p>
     </Link>
   );

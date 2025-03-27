@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../../css/home/header.css'
+import srcSidebarIcon from '../../../image/sidebarIcon.png'
 
-const Header = () => {
+const Header = (props) => {
   const [activeTabs, setActiveTabs] = useState(['ChatGPT']);
 
   const tabs = ['ChatGPT', 'Copilot', 'Bard', 'Claude'];
@@ -24,6 +25,11 @@ const Header = () => {
 
   return (
     <header className='header'>
+        {props.isOpen ? <></>: 
+          <div className='topIcon-sidebar' onClick={()=>{props.setOpen(true)}}>
+              <img src= {srcSidebarIcon}/>
+          </div>
+        }
         <div className='nav-tabs'>May I&nbsp;</div>
         <div className="ai-tabs">
           {tabs.map((tab) => (

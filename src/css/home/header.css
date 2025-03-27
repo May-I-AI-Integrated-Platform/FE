@@ -46,6 +46,14 @@
     display: flex;
     align-items: center;
     padding: 17px;
+    border-bottom: 1px solid #333333;
+    .topIcon-sidebar{
+        margin-top: 5px;
+        img{
+            width: 75%;
+            height: 75%;
+        }
+    }
 }
 
 

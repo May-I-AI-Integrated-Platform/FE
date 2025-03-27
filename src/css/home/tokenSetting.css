@@ -1,0 +1,64 @@
+.tokenSetting-home{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-color: #FFFFFF50;
+    width: 100vw;
+    height: 100vh;
+}
+.container-tokenSetting{
+    width: 70%;
+    height: 60%;
+    background-color: #303030;
+    border-radius: 20px;
+    .title-container{
+        font-size: 2.8vw;
+        font-weight: 600;
+        margin: 20px 30px;
+    }
+    .detail-container{
+        margin: 0px 30px;
+        width: calc(100% -  60px);
+        border-bottom: solid 1px #FFFFFF;
+        .name-detail{
+            font-size: 1.2vw;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .input-detail{
+            width: 95%;
+            font-size: 1.2vw;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #FFFFFF;
+            background-color: transparent;
+            border: 0;
+            outline: none;
+        }
+    }
+    .button-container{
+        width: calc(100% -  60px);
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        button{
+            width: 220px;
+            height: 45px;
+            margin: 0px 50px;
+            border-radius: 10px;
+            border: 0;
+            outline: none;
+            font-size: 17px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 550;
+        }
+        .cancel-button{
+            background-color: #656363;
+            color: #FFFFFF;
+        }
+        .submit-button{
+            background-color: #FF9797;
+        }
+    }
+}
