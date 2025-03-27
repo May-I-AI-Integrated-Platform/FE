@@ -11,6 +11,7 @@ const userData = {
 
 const Header = (props) => {
   const [activeTabs, setActiveTabs] = useState(['ChatGPT']);
+  const [isClickProfile, setClickProfile] = useState(false);
 
   const tabs = ['ChatGPT', 'Copilot', 'Bard', 'Claude'];
 
@@ -51,19 +52,24 @@ const Header = (props) => {
         </div>
         <div className='nav-tabs'>&nbsp;?</div>
         
-        <div className="profile">
+        <div className="profile" onClick={()=>setClickProfile(!isClickProfile)}>
           <div className="profile-icon"></div>
         </div>
-        <div className='modal-header'>
-          <div className='profile-modal'>
-            <img src={`${userData.profileImg}`} alt="" className='image-modal'/>
-            <div>
-              <p className='name-modal'>{`${userData.name}`}</p>
-              <p className='email-modal'>{`${userData.email}`}</p>
+        {
+          isClickProfile?
+          <div className='modal-header'>
+            <div className='profile-modal'>
+              <img src={`${userData.profileImg}`} alt="" className='image-modal'/>
+              <div>
+                <p className='name-modal'>{`${userData.name}`}</p>
+                <p className='email-modal'>{`${userData.email}`}</p>
+              </div>
             </div>
-          </div>
-          <button className='logout-modal'>로그아웃</button>
-        </div>
+            <button className='logout-modal'>로그아웃</button>
+          </div>:
+          <></>
+        }
+        
     </header>
   );
 };
