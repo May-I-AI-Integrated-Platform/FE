@@ -3,9 +3,25 @@ import '../../css/home/header.css'
 import srcSidebarIcon from '../../../image/sidebarIcon.png'
 
 const Header = (props) => {
-const [activeTab, setActiveTab] = useState('ChatGPT');
+  const [activeTabs, setActiveTabs] = useState(['ChatGPT']);
 
-const tabs = ['ChatGPT', 'Copilot', 'Bard', 'Claude'];
+  const tabs = ['ChatGPT', 'Copilot', 'Bard', 'Claude'];
+
+  const handleTabClick = (tab) => {
+    setActiveTabs(prevActiveTabs => {
+      // If tab is already active
+      if (prevActiveTabs.includes(tab)) {
+        // Prevent deselecting if it's the last active tab
+        if (prevActiveTabs.length > 1) {
+          return prevActiveTabs.filter(t => t !== tab);
+        }
+        return prevActiveTabs;
+      }
+      
+      // Add the tab to active tabs
+      return [...prevActiveTabs, tab];
+    });
+  };
 
   return (
     <header className='header'>
@@ -19,8 +35,8 @@ const tabs = ['ChatGPT', 'Copilot', 'Bard', 'Claude'];
           {tabs.map((tab) => (
             <button 
               key={tab}
-              className={`tab ${activeTab === tab ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab)}
+              className={`tab ${activeTabs.includes(tab) ? 'active' : ''}`}
+              onClick={() => handleTabClick(tab)}
             >
               {tab}
             </button>
