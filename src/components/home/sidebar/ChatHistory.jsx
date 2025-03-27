@@ -28,7 +28,7 @@ export default function ChatHistory(props) {
 
   //chat list 출력
   const chatHistory = chatList.map((chat) =>
-    <Link className='chatHistory-chat' to={`/chat/${chat.id}`} style={currentChat == chat.id ? {backgroundColor:'#515151'} : {background:'none'}}>
+    <Link className='chatHistory-chat' to={`/chat/${chat.id}`} style={currentChat == chat.id ? {backgroundColor:'#515151'} : null}>
       <p className='chat-name'>
         {chat.name.length > 10 ? chat.name.slice(0,7) + "..." : chat.name}
       </p>
