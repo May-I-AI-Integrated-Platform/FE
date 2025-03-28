@@ -25,12 +25,13 @@ export default function Home() {
 
   return (
     <div className='home'>
-      {isOpen ? <Sidebar setOpen={setOpen}/> : <></>}
+      {isOpen ? <Sidebar setOpen={setOpen} setSetting={setSetting}/> : <></>}
       <div className='home-contents' style={isOpen ? {width: '90%'}: {width: "100%"}}>
-          <Header />
+          <Header isOpen={isOpen} setOpen={setOpen}/>
           <ChatArea messages={messages} />
           <Inputbar onSendMessage={handleSendMessage}/>
       </div>
+      {isSetting ? <TokenSetting setSetting={setSetting}/> : <></>}
     </div>
   )
 }
