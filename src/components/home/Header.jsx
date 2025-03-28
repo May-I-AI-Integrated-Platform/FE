@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../css/home/header.css'
 import srcSidebarIcon from '../../../image/sidebarIcon.png'
+import srcCancelIcon from '../../../image/cancelIcon.png'
 
 const userData = {
   userId: 1,
@@ -63,6 +64,9 @@ const Header = (props) => {
               <div>
                 <p className='name-modal'>{`${userData.name}`}</p>
                 <p className='email-modal'>{`${userData.email}`}</p>
+              </div>
+              <div className='cancel-modal' onClick={()=>{setClickProfile(false)}}>
+                  <img src= {srcCancelIcon}/>
               </div>
             </div>
             <button className='logout-modal'>로그아웃</button>
