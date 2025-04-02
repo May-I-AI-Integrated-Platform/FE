@@ -2,7 +2,7 @@
 
 import Header from "@/component/layout/Header";
 import useSidebarStore from "@/store/useSidebarStore";
-import { AddChatIcon } from "../../../public/svgs";
+import { AddChatIcon } from "../../../../public/svgs";
 
 export default function Home() {
 
