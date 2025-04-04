@@ -1,3 +1,4 @@
+
 import { create } from "zustand";
 
 interface SidebarState {
@@ -8,11 +9,18 @@ interface SidebarState {
   setIsAddChatOn: (value: boolean) => void;
 }
 
+const isBrowser = typeof window !== "undefined";
+
 const useSidebarStore = create<SidebarState>((set) => ({
-  isSidebarOpen: true,
+  isSidebarOpen: false,
   isAddChatOn: false,
 
-  setIsSidebarOpen: (value: boolean) => set({isSidebarOpen: value}),
+  setIsSidebarOpen: (value) => {
+    set({ isSidebarOpen: value });
+    if (typeof window !== "undefined") {
+      localStorage.setItem("isSidebarOpen", JSON.stringify(value));
+    }
+  },
   setIsAddChatOn: (value: boolean) => set({isAddChatOn: value}),
 }))
 
