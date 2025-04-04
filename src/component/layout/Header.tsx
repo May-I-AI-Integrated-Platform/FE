@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { SidebarIcon } from "../../../public/svgs";
-import useSidebarStore from "@/store/useSidebarStore";
+import useSidebarStorei from "@/store/useSidebarStore";
 import { AnimatePresence, motion } from 'framer-motion';
 
 const Header = () => {
@@ -10,33 +10,33 @@ const Header = () => {
   const {
     isSidebarOpen,
     setIsSidebarOpen,
-  } = useSidebarStore();
+  } = useSidebarStorei();
 
   const [isChatGptOn, setIsChatGptOn] = useState(false);
-  const [isCopilotOn, setIsCopilotOn] = useState(false);
-  const [isBardOn, setIsBardOn] = useState(false);
+  const [isDeepseekOn, setIsDeepseekOn] = useState(false);
   const [isClaudeOn, setIsClaudeOn] = useState(false);
+  const [isGeminiOn, setIsGeminiOn] = useState(false);
 
   return (
-    <div className={`w-full flex absolute justify-between items-center px-10 py-5 border-b border-solid border-gray-600 transition-all-300-out`}>
+    <div className={`w-full flex absolute justify-between items-center px-10 py-5 border-b border-solid border-gray-600 select-none transition-all-300-out`}>
 
       <div className={`w-[40px] lg:w-[0px]`}>
-      <AnimatePresence>
-        {!isSidebarOpen &&
-          <motion.div
-            className={``}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}>
+        <AnimatePresence>
+          {!isSidebarOpen &&
+            <motion.div
+              className={``}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}>
 
-            <SidebarIcon
-              className={`w-[40px] cursor-pointer`}
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+              <SidebarIcon
+                className={`w-[40px] cursor-pointer`}
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
 
-          </motion.div>
-        }
-      </AnimatePresence>
+            </motion.div>
+          }
+        </AnimatePresence>
       </div>
 
       <div className={`flex gap-4 jersey text-[40px] justify-start ${!isSidebarOpen ? `` : `lg:grow`} transition-all-600-out`}>
@@ -44,28 +44,29 @@ const Header = () => {
         <div className={`flex gap-4 text-[32px] items-center`}>
           <p
             className={`
-              ${isChatGptOn ? `text-point border-point` : `text-gray-300 border-gray-300`}
+              ${isChatGptOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
               border-b-2 border-solid  cursor-pointer transition-all-300-out`}
             onClick={() => setIsChatGptOn(!isChatGptOn)}>
             ChatGPT</p>
           <p
             className={`
-              ${isCopilotOn ? `text-point border-point` : `text-gray-300 border-gray-300`}
+              ${isDeepseekOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
               border-b-2 border-solid cursor-pointer transition-all-300-out`}
-            onClick={() => setIsCopilotOn(!isCopilotOn)}>
-            Copilot</p>
+            onClick={() => setIsDeepseekOn(!isDeepseekOn)}>
+            Deepseek</p>
           <p
             className={`
-              ${isBardOn ? `text-point border-point` : `text-gray-300 border-gray-300`}
-              border-b-2 border-solid cursor-pointer transition-all-300-out`}
-            onClick={() => setIsBardOn(!isBardOn)}>
-            Bard</p>
-          <p
-            className={`
-              ${isClaudeOn ? `text-point border-point` : `text-gray-300 border-gray-300`}
+              ${isClaudeOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
               border-b-2 border-solid cursor-pointer transition-all-300-out`}
             onClick={() => setIsClaudeOn(!isClaudeOn)}>
             Claude</p>
+          <p
+            className={`
+              ${isGeminiOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
+              border-b-2 border-solid cursor-pointer transition-all-300-out`}
+            onClick={() => setIsGeminiOn(!isGeminiOn)}>
+            Gemini</p>
+
         </div>
         <p>?</p>
       </div>

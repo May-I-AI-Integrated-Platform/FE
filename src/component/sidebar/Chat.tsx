@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 interface ChatProps {
   title: string;
@@ -12,11 +12,14 @@ const Chat:React.FC<ChatProps> = ({
   id,
 }) => {
 
+  const { chatId } = useParams();
+
   const router = useRouter();
 
   return (
     <div 
-      className={`w-full px-3 py-2 rounded-[8px] text-gray-300 cursor-pointer hover:text-gray-50 hover:bg-[rgba(255,255,255,0.05)] transition-all-300-out`}
+      className={`${Number(chatId) === id ? `text-gray-50 bg-[rgba(255,255,255,0.04)]` : `text-gray-300 hover:text-gray-50`}
+        w-full px-3 py-2 rounded-[8px] cursor-pointer hover:bg-[rgba(255,255,255,0.08)] transition-all-300-out`}
       onClick={() => router.push(`/${id}`)}>
       {title}
     </div>

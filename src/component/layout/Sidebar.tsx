@@ -33,11 +33,15 @@ const Sidebar = () => {
     };
   }, [setIsAddChatOn]);
 
+  useEffect(() => {
+    setIsSidebarOpen(JSON.parse(localStorage.getItem("isSidebarOpen") || "false"))
+  }, [])
+
   return (
     <div
       className={`
         ${isSidebarOpen ? `left-0` : `left-[-250px]`} 
-        absolute z-[500] w-[250px] h-screen flex flex-col gap-6 p-6 bg-gray-600 transition-all-600-out`}>
+        absolute z-[500] w-[250px] h-screen flex flex-col gap-6 p-6 bg-gray-600 select-none transition-all-600-out`}>
       <div className={`flex justify-between`}>
         <AddChatIcon 
           ref={chatOnRef}
