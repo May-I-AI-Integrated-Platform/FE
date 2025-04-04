@@ -9,8 +9,6 @@ interface SidebarState {
   setIsAddChatOn: (value: boolean) => void;
 }
 
-const isBrowser = typeof window !== "undefined";
-
 const useSidebarStore = create<SidebarState>((set) => ({
   isSidebarOpen: false,
   isAddChatOn: false,
