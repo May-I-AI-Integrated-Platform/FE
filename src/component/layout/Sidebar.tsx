@@ -4,6 +4,7 @@ import useSidebarStore from "@/store/useSidebarStore";
 import { AddChatIcon, SettingIcon, SidebarIcon } from "../../../public/svgs";
 import ChatList from "../sidebar/ChatList";
 import { useEffect, useRef } from "react";
+import useModalStore from "@/store/useModalStore";
 
 
 const Sidebar = () => {
@@ -13,6 +14,10 @@ const Sidebar = () => {
     setIsSidebarOpen,
     setIsAddChatOn,
   } = useSidebarStore();
+
+  const {
+    setIsSettingModalOpen,
+  } = useModalStore();
 
   const chatOnRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -54,7 +59,9 @@ const Sidebar = () => {
 
       <ChatList inputRef={inputRef}/>
 
-      <SettingIcon className={`w-6 cursor-pointer`} />
+      <SettingIcon 
+        className={`w-6 cursor-pointer`}
+        onClick={() => {setIsSettingModalOpen(true); console.log("asd")}}/>
     </div>
   )
 }

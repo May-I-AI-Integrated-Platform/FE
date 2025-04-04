@@ -2,6 +2,7 @@
 
 import Header from "@/component/layout/Header";
 import Sidebar from "@/component/layout/Sidebar";
+import SettingModal from "@/component/portal/SettingModal";
 import useSidebarStorei from "@/store/useSidebarStore";
 import "@/styles/globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         w-screen h-screen transition-all-600-out relative`}>
         <Header />
         {children}
+        <SettingModal />
       </div>
     </div>
   );
