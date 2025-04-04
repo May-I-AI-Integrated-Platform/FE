@@ -1,12 +1,24 @@
 @layer utilities {
-    .transition-custom {
-        transition: var(--transition-custom);
+    .transition-all-300-out {
+        transition: var(--transition-all-300-out);
+    }
+    .transition-all-600-out {
+        transition: var(--transition-all-600-out);
+    }
+    .transition-all-700-out {
+        transition: var(--transition-all-700-out);
+    }
+    .transition-all-1000-out {
+        transition: var(--transition-all-1000-out);
     }
 }
 
 @theme {
     /* 트랜지션 */
-    --transition-custom: all 300ms ease-out;
+    --transition-all-300-out: all 300ms cubic-bezier(0, 0, 0.3, 1);
+    --transition-all-600-out: all 600ms cubic-bezier(0, 0, 0.3, 1);
+    --transition-all-700-out: all 700ms cubic-bezier(0, 0, 0.3, 1);
+    --transition-all-1000-out: all 1000ms cubic-bezier(0, 0, 0.3, 1);
 
     /* 색상 */
     --color-gray-50: #F7F7F7;
@@ -37,7 +49,7 @@
 
     --text-display-24-m: 24px;
     --text-display-24-m--line-height: 1.2;
-    --text-display-24-m--font-weight: 500;
+    --text-display-24-m--font-weight: 400;
 
     --text-headline-20-b: 20px;
     --text-headline-20-b--line-height: 1.2;
@@ -45,33 +57,33 @@
     
     --text-headline-20-m: 20px;
     --text-headline-20-m--line-height: 1.2;
-    --text-headline-20-m--font-weight: 500;
+    --text-headline-20-m--font-weight: 400;
 
     --text-subhead-16-sb: 16px;
     --text-subhead-16-sb--line-height: 1.2;
-    --text-subhead-16-sb--font-weight: 600;
+    --text-subhead-16-sb--font-weight: 500;
 
     --text-subhead-14-sb: 14px;
     --text-subhead-14-sb--line-height: 1.2;
-    --text-subhead-14-sb--font-weight: 600;
+    --text-subhead-14-sb--font-weight: 500;
 
     --text-subhead-12-sb: 12px;
     --text-subhead-12-sb--line-height: 1.2;
-    --text-subhead-12-sb--font-weight: 600;
+    --text-subhead-12-sb--font-weight: 500;
 
     --text-body-16-r: 16px;
     --text-body-16-r--line-height: 1.2;
-    --text-body-16-r--font-weight: 400;
+    --text-body-16-r--font-weight: 300;
 
     --text-body-14-r: 14px;
     --text-body-14-r--line-height: 1.2;
-    --text-body-14-r--font-weight: 400;
+    --text-body-14-r--font-weight: 300;
 
     --text-caption-12-r: 12px;
     --text-caption-12-r--line-height: 1.2;
-    --text-caption-12-r--font-weight: 400;
+    --text-caption-12-r--font-weight: 300;
 
     --text-caption-10-l: 10px;
     --text-caption-10-l--line-height: 1.2;
-    --text-caption-10-l--font-weight: 300;
+    --text-caption-10-l--font-weight: 200;
 }
