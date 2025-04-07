@@ -68,7 +68,7 @@ export default function Signup() {
 
   return (
     <div className={`w-screen h-screen flex flex-col items-center justify-center gap-5`}>
-      <div className={`w-[40%] max-w-[500px] flex flex-col gap-10`}>
+      <div className={`w-[40%] max-w-[500px] flex flex-col gap-10 items-center`}>
         <Logo className={`cursor-pointer`} onClick={() => router.push('/')} />
         <div className={`flex flex-col gap-8 w-full`}>
 
@@ -97,8 +97,8 @@ export default function Signup() {
             value={password}
             setValue={setPassword}
             isValid={isPasswordValid}
-            handleKeyDown={handleKeyDown} 
-            isPassword={true}/>
+            handleKeyDown={handleKeyDown}
+            isPassword={true} />
 
           <InputForm
             title={"비밀번호 확인"}
@@ -107,24 +107,21 @@ export default function Signup() {
             value={passwordValid}
             setValue={setPasswordValid}
             isValid={isPasswordSame}
-            handleKeyDown={handleKeyDown} 
-            isPassword={true}/>
+            handleKeyDown={handleKeyDown}
+            isPassword={true} />
 
-          <div className={`flex flex-col gap-[60px]`}>
-            <div className={`flex flex-col gap-5 w-full`}>
-              <button
-                className={`self-center rounded bg-point text-gray-900 w-full h-[48px] disabled:bg-gray-500 disabled:text-gray-50`}
-                disabled={
-                  name.trim() === "" ||
-                  email.trim() === "" || !isEmailValid ||
-                  password.trim() === "" || !isPasswordValid ||
-                  passwordValid.trim() === "" || !isPasswordSame}
-                onClick={handleSignup}>
-                확인
-              </button>
-            </div>
-
-          </div>
+        </div>
+        <div className={`flex flex-col gap-5 w-full`}>
+          <button
+            className={`self-center rounded bg-point text-gray-900 w-full h-[48px] disabled:bg-gray-500 disabled:text-gray-50`}
+            disabled={
+              name.trim() === "" ||
+              email.trim() === "" || !isEmailValid ||
+              password.trim() === "" || !isPasswordValid ||
+              passwordValid.trim() === "" || !isPasswordSame}
+            onClick={handleSignup}>
+            확인
+          </button>
         </div>
       </div>
     </div>
