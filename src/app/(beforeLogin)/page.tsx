@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { GoogleIcon, KakaoIcon, Logo, NaverIcon } from "../../../public/svgs"
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import InputForm from "@/component/sign/InputForm";
 
 

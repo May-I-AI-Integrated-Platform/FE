@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Logo } from "../../../../public/svgs";
-import { AnimatePresence, motion } from "framer-motion";
 import InputForm from "@/component/sign/InputForm";
 
 
