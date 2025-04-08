@@ -60,7 +60,6 @@ const Sidebar = () => {
     const getUserInfo = async () => {
       try {
         const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/user/data`)
-        console.log(response)
         const tokenList = response?.data?.result?.tokenList;
         setUserEmail(response?.data?.result?.userEmail);
         setUserName(response?.data?.result?.userName);
