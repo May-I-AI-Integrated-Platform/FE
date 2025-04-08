@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { GoogleIcon, KakaoIcon, Logo, NaverIcon } from "../../../public/svgs"
 import { useRouter } from "next/navigation";
 import InputForm from "@/component/sign/InputForm";
+import useValidate from "@/hooks/useValidate";
 
 
 export default function Login() {
@@ -27,13 +28,11 @@ export default function Login() {
     }
   }
 
-  useEffect(() => {
-    if (emailReg.test(email)) {
-      setIsEmailValid(true)
-    } else {
-      setIsEmailValid(false)
-    }
-  }, [email])
+  useValidate(
+    emailReg.test(email),
+    setIsEmailValid,
+    [email]
+  )
 
   return (
     <div className={`w-screen h-screen flex flex-col items-center justify-center gap-5`}>

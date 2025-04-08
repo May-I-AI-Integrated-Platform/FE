@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Logo } from "../../../../public/svgs";
 import InputForm from "@/component/sign/InputForm";
+import useValidate from "@/hooks/useValidate";
 
 
 export default function Signup() {
@@ -28,37 +29,29 @@ export default function Signup() {
     router.push('/')
   }
 
-  useEffect(() => {
-    if (name.length > 1) {
-      setIsNameValid(true)
-    } else {
-      setIsNameValid(false)
-    }
-  }, [name])
+  useValidate(
+    name.length > 1,
+    setIsNameValid,
+    [name]
+  )
 
-  useEffect(() => {
-    if (emailReg.test(email)) {
-      setIsEmailValid(true)
-    } else {
-      setIsEmailValid(false)
-    }
-  }, [email])
+  useValidate(
+    emailReg.test(email),
+    setIsEmailValid,
+    [email]
+  )
 
-  useEffect(() => {
-    if (passwordReg.test(password)) {
-      setIsPasswordValid(true)
-    } else {
-      setIsPasswordValid(false)
-    }
-  }, [password])
+  useValidate(
+    passwordReg.test(password),
+    setIsPasswordValid,
+    [password]
+  )
 
-  useEffect(() => {
-    if (password === passwordValid) {
-      setIsPasswordSame(true)
-    } else {
-      setIsPasswordSame(false)
-    }
-  }, [password, passwordValid])
+  useValidate(
+    password === passwordValid,
+    setIsPasswordSame,
+    [password, passwordValid]
+  )
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && name.trim() !== "" && email.trim() !== "" && password.trim() !== "" && passwordValid.trim() !== "") {
