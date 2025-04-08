@@ -23,7 +23,8 @@ const AccountModal = () => {
     try {
       await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/user/logout`)
       router.push('/');
-    } catch (error) {
+    } catch (e) {
+      console.log(e)
       router.push('/');
     }
   }

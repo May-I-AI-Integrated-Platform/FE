@@ -69,6 +69,7 @@ const Sidebar = () => {
         setClaudeToken(tokenList[2].value);
         setGeminiToken(tokenList[3].value);
       } catch (e) {
+        console.log(e)
         router.push('/');
       }
     }
