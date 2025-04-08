@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Logo } from "../../../../public/svgs";
 import InputForm from "@/component/sign/InputForm";
 import useValidate from "@/hooks/useValidate";
+import { axiosInstance } from "@/apis/axiosInstance";
+import { AxiosError } from "axios";
 
 
 export default function Signup() {
@@ -24,9 +26,27 @@ export default function Signup() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isPasswordSame, setIsPasswordSame] = useState(true);
 
+  const [emailError, setEmailError] = useState("이메일을 확인해주세요")
 
-  const handleSignup = () => {
-    router.push('/')
+
+  const handleSignup = async () => {
+
+    try {
+      await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/user/register`, 
+        {
+          userEmail: email,
+          userName: name,
+          userPassword: password,
+        }
+      )
+
+      router.push('/')
+    } catch (e: unknown) { 
+      if (e instanceof AxiosError && e.response?.data?.code === 'USER501') {
+        setIsEmailValid(false);
+        setEmailError("중복된 이메일입니다.");
+      }
+    }
   }
 
   useValidate(
@@ -77,7 +97,7 @@ export default function Signup() {
           <InputForm
             title={"이메일"}
             placeholder={"이메일을 입력해주세요"}
-            error={"이메일을 확인해주세요"}
+            error={emailError}
             value={email}
             setValue={setEmail}
             isValid={isEmailValid}
