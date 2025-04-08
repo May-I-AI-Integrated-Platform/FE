@@ -5,6 +5,9 @@ import { GoogleIcon, KakaoIcon, Logo, NaverIcon } from "../../../public/svgs"
 import { useRouter } from "next/navigation";
 import InputForm from "@/component/sign/InputForm";
 import useValidate from "@/hooks/useValidate";
+import { axiosInstance } from "@/apis/axiosInstance";
+import { AnimatePresence, motion } from "framer-motion";
+import { AxiosError } from "axios";
 
 
 export default function Login() {
@@ -18,8 +21,23 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    router.push('/home')
+  const [isError, setIsError] = useState(false);
+
+  const handleLogin = async () => {
+    console.log('dsa')
+    try {
+      await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/user/login`, {
+        userEmail: email,
+        userPassword: password,
+      })
+
+      router.push('/home');
+
+    } catch (e: unknown) {
+      if (e instanceof AxiosError && e.response?.data?.code === 'USER502') {
+        setIsError(true)
+      }
+    }
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -34,33 +52,50 @@ export default function Login() {
     [email]
   )
 
+  useEffect(() => {
+    setIsError(false)
+  }, [email, password])
+
   return (
     <div className={`w-screen h-screen flex flex-col items-center justify-center gap-5`}>
       <div className={`w-[40%] max-w-[500px] flex flex-col items-center gap-10`}>
         <Logo className={`cursor-pointer`} onClick={() => router.push('/')} />
 
-        <div className={`flex flex-col gap-8 w-full`}>
-        <InputForm
-            title={"이메일"}
-            placeholder={"이메일을 입력해주세요"}
-            error={"이메일을 확인해주세요"}
-            value={email}
-            setValue={setEmail}
-            isValid={isEmailValid}
-            handleKeyDown={handleKeyDown} />
-            
-          <div className={`flex flex-col gap-2 `}>
-            <p className={`text-display-24-b`}>비밀번호</p>
-            <input
-              className={`border-b border-gray-500 text-body-16-r pb-1 placeholder:text-gray-300`}
-              type="password"
-              placeholder="비밀번호를 입력해주세요"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={handleKeyDown} />
-          </div>
-        </div>
+        <div className="flex flex-col w-full items-center">
+          <div className={`flex flex-col gap-8 w-full`}>
+            <InputForm
+              title={"이메일"}
+              placeholder={"이메일을 입력해주세요"}
+              error={"이메일을 확인해주세요"}
+              value={email}
+              setValue={setEmail}
+              isValid={isEmailValid}
+              handleKeyDown={handleKeyDown} />
 
+            <div className={`flex flex-col gap-2 `}>
+              <p className={`text-display-24-b`}>비밀번호</p>
+              <input
+                className={`border-b border-gray-500 text-body-16-r pb-1 placeholder:text-gray-300`}
+                type="password"
+                placeholder="비밀번호를 입력해주세요"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyDown} />
+            </div>
+          </div>
+          <AnimatePresence>
+          {isError &&
+            <motion.p
+              initial={{ height: 0, opacity: 0, paddingTop: 0 }}
+              animate={{ height: 54.4, opacity: 1, paddingTop:40 }}
+              exit={{ height: 0, opacity: 0, paddingTop:0 }}
+              transition={{ duration: 0.3 }}
+              className="text-subhead-12-sb text-[#FF5D5D]">이메일 또는 비밀번호를 확인해주세요
+            </motion.p>
+          }
+        </AnimatePresence>
+        </div>
+        
         <div className={`flex flex-col gap-[60px] w-full`}>
           <div className={`flex flex-col gap-5 w-full`}>
             <button
