@@ -7,5 +7,7 @@ export { default as SidebarIcon } from "./sidebar_icon.svg";
 export { default as SendIcon } from "./send_icon.svg";
 export { default as SettingIcon } from "./setting_icon.svg";
 export { default as HelpIcon } from "./help_icon.svg";
+export { default as AccountIcon } from "./account_icon.svg";
+export { default as ExitIcon } from "./exit_icon.svg";
 
 export { default as Logo } from "./logo.svg";
