@@ -24,7 +24,6 @@ export default function Login() {
   const [isError, setIsError] = useState(false);
 
   const handleLogin = async () => {
-    console.log('dsa')
     try {
       await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/user/login`, {
         userEmail: email,
@@ -34,7 +33,8 @@ export default function Login() {
       router.push('/home');
 
     } catch (e: unknown) {
-      if (e instanceof AxiosError && e.response?.data?.code === 'USER502') {
+      console.log(e)
+      if (e instanceof AxiosError && e.response?.data?.code === 'USER503') {
         setIsError(true)
       }
     }

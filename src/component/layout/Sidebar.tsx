@@ -5,6 +5,9 @@ import { AddChatIcon, SettingIcon, SidebarIcon } from "../../../public/svgs";
 import ChatList from "../sidebar/ChatList";
 import { useEffect, useRef } from "react";
 import useModalStore from "@/store/useModalStore";
+import useUserStore from "@/store/useUserStore";
+import { axiosInstance } from "@/apis/axiosInstance";
+import { useRouter } from "next/navigation";
 
 
 const Sidebar = () => {
@@ -18,6 +21,17 @@ const Sidebar = () => {
   const {
     setIsSettingModalOpen,
   } = useModalStore();
+
+  const {
+    setUserEmail,
+    setUserName,
+    setChatGptToken,
+    setDeepseekToken,
+    setClaudeToken,
+    setGeminiToken,
+  } = useUserStore();
+
+  const router = useRouter();
 
   const chatOnRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,6 +56,26 @@ const Sidebar = () => {
     setIsSidebarOpen(JSON.parse(localStorage.getItem("isSidebarOpen") || "false"))
   }, [])
 
+  useEffect(() => {
+    const getUserInfo = async () => {
+      try {
+        const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/user/data`)
+        const tokenList = response?.data?.result?.tokenList;
+        setUserEmail(response?.data?.result?.userEmail);
+        setUserName(response?.data?.result?.userName);
+        setChatGptToken(tokenList[0].value);
+        setDeepseekToken(tokenList[1].value);
+        setClaudeToken(tokenList[2].value);
+        setGeminiToken(tokenList[3].value);
+      } catch (e) {
+        console.log(e)
+        router.push('/');
+      }
+    }
+
+    getUserInfo();
+  }, [])
+
   return (
     <div
       className={`
@@ -61,7 +95,7 @@ const Sidebar = () => {
 
       <SettingIcon 
         className={`w-6 cursor-pointer`}
-        onClick={() => {setIsSettingModalOpen(true); console.log("asd")}}/>
+        onClick={() => {setIsSettingModalOpen(true)}}/>
     </div>
   )
 }
