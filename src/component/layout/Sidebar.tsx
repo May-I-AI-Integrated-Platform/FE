@@ -61,7 +61,7 @@ const Sidebar = () => {
 
       <SettingIcon 
         className={`w-6 cursor-pointer`}
-        onClick={() => {setIsSettingModalOpen(true); console.log("asd")}}/>
+        onClick={() => {setIsSettingModalOpen(true)}}/>
     </div>
   )
 }
