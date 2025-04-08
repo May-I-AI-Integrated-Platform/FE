@@ -1,7 +1,7 @@
 'use client'
 
 import useModalStore from "@/store/useModalStore";
-import Portal from "./Portal";
+import Portal from "../portal/Portal";
 import { AnimatePresence, motion } from "framer-motion";
 import { MouseEvent } from "react";
 import { HelpIcon } from "../../../public/svgs";
@@ -68,7 +68,7 @@ const SettingModal = () => {
   const setSecretKey = async () => {
 
     try {
-      const response = await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/token`,
+      await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/token`,
         {
           userId: 2,
           tokenList: [
@@ -91,7 +91,6 @@ const SettingModal = () => {
           ]
         }
       )
-      console.log(response);
     } catch (e) {
       console.log(e)
     }

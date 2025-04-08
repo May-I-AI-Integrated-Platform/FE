@@ -2,7 +2,7 @@
 
 import Header from "@/component/layout/Header";
 import Sidebar from "@/component/layout/Sidebar";
-import SettingModal from "@/component/portal/SettingModal";
+import SettingModal from "@/component/modal/SettingModal";
 import useSidebarStorei from "@/store/useSidebarStore";
 import "@/styles/globals.css";
 
