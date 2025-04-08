@@ -38,7 +38,7 @@ const InputForm:React.FC<InputFormProps> = ({
         {!isValid && value.trim() !== "" &&
           <motion.p
             initial={{ height: 0, opacity: 0, paddingTop: 0, }}
-            animate={{ height: 23.2, opacity: 1, paddingTop: 10 }}
+            animate={{ height: 24.4, opacity: 1, paddingTop: 10 }}
             exit={{ height: 0, opacity: 0, paddingTop: 0 }}
             transition={{ duration: 0.3 }}
             className="text-subhead-12-sb text-[#FF5D5D]">{error}
