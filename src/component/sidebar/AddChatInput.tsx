@@ -2,7 +2,7 @@ import { RefObject, useState } from "react";
 import { AddChatIcon } from "../../../public/svgs";
 import { axiosInstance } from "@/apis/axiosInstance";
 import useSidebarStore from "@/store/useSidebarStore";
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface AddChatInputProps {
   divRef: RefObject<HTMLDivElement | null>;
@@ -24,7 +24,7 @@ const AddChatInput = ({
 
   const addChat = async () => {
     try {
-      const response = await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/chat`, {
+        await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/chat`, {
         userId: 2,
         chatName: chatName,
       })
