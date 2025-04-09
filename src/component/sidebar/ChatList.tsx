@@ -2,14 +2,13 @@ import useSidebarStore from "@/store/useSidebarStore";
 import Chat from "./Chat";
 import { RefObject, useEffect } from "react";
 import AddChatInput from "./AddChatInput";
+import { useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "@/apis/axiosInstance";
 
-const Chats = [
-  { title: "부분 함수적 종속성", id: 1 },
-  { title: "부분 함수적", id: 2 },
-  { title: "부분", id: 3 },
-  { title: "부", id: 4 },
-  { title: "부부젤라", id: 5 },
-]
+interface ChatState {
+  chatId: number;
+  chatName: string;
+}
 
 interface ChatListProps {
   inputRef: RefObject<HTMLInputElement | null>;
@@ -20,6 +19,21 @@ const ChatList: React.FC<ChatListProps> = ({
   inputRef,
   divRef
 }) => {
+
+  const getChats = async () => {
+    try {
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/chat/2`)
+      console.log(response.data)
+      return response.data
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const { data: Chats } = useQuery({
+    queryKey: ['getChats'],
+    queryFn: getChats,
+  })
 
   const {
     isAddChatOn,
@@ -32,11 +46,11 @@ const ChatList: React.FC<ChatListProps> = ({
   }, [isAddChatOn, inputRef]);
 
   return (
-    <div className={`flex flex-col w-full h-full ${Chats.length > 0 ? `gap-1` : `gap-4`}`}>
-      {Chats.length > 0 ? (
+    <div className={`flex flex-col w-full h-full ${Chats?.result?.length > 0 ? `gap-1` : `gap-4`}`}>
+      {Chats?.result?.length > 0 ? (
         <>
-          {Chats.map((item, index) => (
-            <Chat key={index} title={item.title} id={item.id} />
+          {Chats?.result?.map((item: ChatState, index: number) => (
+            <Chat key={index} title={item.chatName} id={item.chatId} />
           ))}
           {isAddChatOn &&
             <AddChatInput
