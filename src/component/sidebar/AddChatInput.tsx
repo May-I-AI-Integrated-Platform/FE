@@ -2,6 +2,7 @@ import { RefObject, useState } from "react";
 import { AddChatIcon } from "../../../public/svgs";
 import { axiosInstance } from "@/apis/axiosInstance";
 import useSidebarStore from "@/store/useSidebarStore";
+import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface AddChatInputProps {
   divRef: RefObject<HTMLDivElement | null>;
@@ -12,6 +13,8 @@ const AddChatInput = ({
   divRef,
   inputRef,
 }: AddChatInputProps) => {
+
+  const queryClient = useQueryClient();
 
   const [chatName, setChatName] = useState("");
 
@@ -31,9 +34,16 @@ const AddChatInput = ({
     }
   }
 
+  const { mutate } = useMutation({
+    mutationFn: addChat,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getChats'] })
+    },
+  });
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && chatName.trim() !== "") {
-      addChat();
+      mutate();
     }
   }
 
@@ -50,7 +60,7 @@ const AddChatInput = ({
       </input>
       <AddChatIcon
         className={`w-5 cursor-pointer`}
-        onClick={addChat} />
+        onClick={mutate} />
     </div>
   )
 }

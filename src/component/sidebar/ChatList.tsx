@@ -23,7 +23,6 @@ const ChatList: React.FC<ChatListProps> = ({
   const getChats = async () => {
     try {
       const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/chat/2`)
-      console.log(response.data)
       return response.data
     } catch (e) {
       console.log(e)
