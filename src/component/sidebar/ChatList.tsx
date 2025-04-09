@@ -1,22 +1,38 @@
 import useSidebarStore from "@/store/useSidebarStore";
 import Chat from "./Chat";
 import { RefObject, useEffect } from "react";
+import AddChatInput from "./AddChatInput";
+import { useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "@/apis/axiosInstance";
 
-const Chats = [
-  { title: "부분 함수적 종속성", id: 1 },
-  { title: "부분 함수적", id: 2 },
-  { title: "부분", id: 3 },
-  { title: "부", id: 4 },
-  { title: "부부젤라", id: 5 },
-]
+interface ChatState {
+  chatId: number;
+  chatName: string;
+}
 
 interface ChatListProps {
-  inputRef: RefObject<HTMLInputElement | null>
+  inputRef: RefObject<HTMLInputElement | null>;
+  divRef: RefObject<HTMLDivElement | null>;
 }
 
 const ChatList: React.FC<ChatListProps> = ({
-  inputRef
+  inputRef,
+  divRef
 }) => {
+
+  const getChats = async () => {
+    try {
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/chat/2`)
+      return response.data
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const { data: Chats } = useQuery({
+    queryKey: ['getChats'],
+    queryFn: getChats,
+  })
 
   const {
     isAddChatOn,
@@ -29,32 +45,30 @@ const ChatList: React.FC<ChatListProps> = ({
   }, [isAddChatOn, inputRef]);
 
   return (
-    <div className={`flex flex-col w-full h-full ${Chats.length > 0 ? `gap-1` : `gap-4`}`}>
-      {Chats.length > 0 ? (
+    <div className={`flex flex-col w-full h-full overflow-auto ${Chats?.result?.length > 0 ? `gap-1` : `gap-4`}`}>
+      {Chats?.result?.length > 0 ? (
         <>
-          {Chats.map((item, index) => (
-            <Chat key={index} title={item.title} id={item.id} />
+          {Chats?.result?.map((item: ChatState, index: number) => (
+            <Chat key={index} title={item.chatName} id={item.chatId} />
           ))}
           {isAddChatOn &&
-            <input
-              ref={inputRef}
-              className={`z-[10] w-full px-3 py-2 rounded-[8px] border border-gray-50 text-gray-50 text-subhead-16-sb`}>
-            </input>
+            <AddChatInput
+              divRef={divRef}
+              inputRef={inputRef} />
           }
         </>
       ) : (
         <>
           {isAddChatOn ? (
-            <input
-              ref={inputRef}
-              className={`z-[10] w-full px-3 py-2 rounded-[8px] border border-gray-50 text-gray-50 text-subhead-16-sb`}>
-            </input>
+            <AddChatInput
+              divRef={divRef}
+              inputRef={inputRef} />
           ) : (
             <div className={`grow self-center content-center text-center text-gray-300 text-subhead-16-sb`}>
-            <p>새로운 채팅을<br />시작해보세요!</p>
-          </div>
+              <p>새로운 채팅을<br />시작해보세요!</p>
+            </div>
           )}
-          
+
         </>
       )}
 
