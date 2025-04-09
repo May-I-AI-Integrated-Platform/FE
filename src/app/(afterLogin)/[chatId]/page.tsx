@@ -1,7 +1,7 @@
 'use client'
 
-import Chat from "@/component/chat/Chat";
-import ChatInput from "@/component/chat/ChatInput";
+import Chat from "@/component/Message/Message";
+import ChatInput from "@/component/Message/MessageInput";
 import { useState } from "react";
 
 interface Chat {

@@ -35,12 +35,14 @@ const Sidebar = () => {
 
   const chatOnRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         chatOnRef.current && !chatOnRef.current.contains(event.target as Node) &&
-        inputRef.current && !inputRef.current.contains(event.target as Node)
+        inputRef.current && !inputRef.current.contains(event.target as Node) &&
+        divRef.current && !divRef.current.contains(event.target as Node)
       ) {
         setIsAddChatOn(false);
       }
@@ -91,7 +93,9 @@ const Sidebar = () => {
           onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
       </div>
 
-      <ChatList inputRef={inputRef}/>
+      <ChatList 
+        inputRef={inputRef}
+        divRef={divRef}/>
 
       <SettingIcon 
         className={`w-6 cursor-pointer`}

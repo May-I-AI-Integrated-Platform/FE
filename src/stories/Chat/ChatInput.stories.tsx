@@ -1,4 +1,4 @@
-import ChatInput from '@/component/chat/ChatInput'; // 실제 컴포넌트 경로
+import ChatInput from '@/component/Message/MessageInput'; // 실제 컴포넌트 경로
 import type { Meta, StoryObj } from '@storybook/react';
  
 const meta: Meta<typeof ChatInput> = {

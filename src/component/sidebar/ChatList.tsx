@@ -1,6 +1,7 @@
 import useSidebarStore from "@/store/useSidebarStore";
 import Chat from "./Chat";
 import { RefObject, useEffect } from "react";
+import AddChatInput from "./AddChatInput";
 
 const Chats = [
   { title: "부분 함수적 종속성", id: 1 },
@@ -11,11 +12,13 @@ const Chats = [
 ]
 
 interface ChatListProps {
-  inputRef: RefObject<HTMLInputElement | null>
+  inputRef: RefObject<HTMLInputElement | null>;
+  divRef: RefObject<HTMLDivElement | null>;
 }
 
 const ChatList: React.FC<ChatListProps> = ({
-  inputRef
+  inputRef,
+  divRef
 }) => {
 
   const {
@@ -36,25 +39,23 @@ const ChatList: React.FC<ChatListProps> = ({
             <Chat key={index} title={item.title} id={item.id} />
           ))}
           {isAddChatOn &&
-            <input
-              ref={inputRef}
-              className={`z-[10] w-full px-3 py-2 rounded-[8px] border border-gray-50 text-gray-50 text-subhead-16-sb`}>
-            </input>
+            <AddChatInput
+              divRef={divRef}
+              inputRef={inputRef} />
           }
         </>
       ) : (
         <>
           {isAddChatOn ? (
-            <input
-              ref={inputRef}
-              className={`z-[10] w-full px-3 py-2 rounded-[8px] border border-gray-50 text-gray-50 text-subhead-16-sb`}>
-            </input>
+            <AddChatInput
+              divRef={divRef}
+              inputRef={inputRef} />
           ) : (
             <div className={`grow self-center content-center text-center text-gray-300 text-subhead-16-sb`}>
-            <p>새로운 채팅을<br />시작해보세요!</p>
-          </div>
+              <p>새로운 채팅을<br />시작해보세요!</p>
+            </div>
           )}
-          
+
         </>
       )}
 

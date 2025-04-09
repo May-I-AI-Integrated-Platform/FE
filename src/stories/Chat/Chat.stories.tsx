@@ -1,4 +1,4 @@
-import Chat from '@/component/chat/Chat'; // 실제 컴포넌트 경로
+import Chat from '@/component/Message/Message'; // 실제 컴포넌트 경로
 import type { Meta, StoryObj } from '@storybook/react';
  
 const meta: Meta<typeof Chat> = {
