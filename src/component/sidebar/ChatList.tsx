@@ -45,7 +45,7 @@ const ChatList: React.FC<ChatListProps> = ({
   }, [isAddChatOn, inputRef]);
 
   return (
-    <div className={`flex flex-col w-full h-full ${Chats?.result?.length > 0 ? `gap-1` : `gap-4`}`}>
+    <div className={`flex flex-col w-full h-full overflow-auto ${Chats?.result?.length > 0 ? `gap-1` : `gap-4`}`}>
       {Chats?.result?.length > 0 ? (
         <>
           {Chats?.result?.map((item: ChatState, index: number) => (
