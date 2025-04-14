@@ -4,6 +4,7 @@ import { RefObject, useEffect } from "react";
 import AddChatInput from "./AddChatInput";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/apis/axiosInstance";
+import useUserStore from "@/store/useUserStore";
 
 interface ChatState {
   chatId: number;
@@ -20,9 +21,13 @@ const ChatList: React.FC<ChatListProps> = ({
   divRef
 }) => {
 
+  const {
+    userEmail
+  } = useUserStore();
+
   const getChats = async () => {
     try {
-      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/chat/2`)
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/chat`)
       return response.data
     } catch (e) {
       console.log(e)
@@ -32,6 +37,7 @@ const ChatList: React.FC<ChatListProps> = ({
   const { data: Chats } = useQuery({
     queryKey: ['getChats'],
     queryFn: getChats,
+    enabled: !!userEmail,
   })
 
   const {
