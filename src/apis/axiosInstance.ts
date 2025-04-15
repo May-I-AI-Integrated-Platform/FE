@@ -18,5 +18,6 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originRequest);
       }
     }
+    return Promise.reject(error)
   }
 )
