@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import ReactMarkdown from 'react-markdown'
 
 interface ChatProps {
   text: string;
-  isMe: boolean;
+  messageType: string;
 }
 
 const Chat: React.FC<ChatProps> = ({
   text,
-  isMe,
+  messageType,
 }) => {
 
   const [currentModel, setCurrentModel] = useState('ChatGPT');
@@ -21,13 +22,13 @@ const Chat: React.FC<ChatProps> = ({
         exit={{ opacity: 0, y: 10 }}
         transition={{ duration: 0.3 }}
         className={`
-        ${isMe ? `justify-items-end` : `justify-items-start`}
+        ${messageType === "USER" ? `justify-items-end` : `justify-items-start`}
         w-full`}>
         <div
           className={`
-          ${isMe ? `bg-gray-500` : `bg-gray-600`}
-          flex flex-col gap-2.5 rounded-[20px] px-5 py-4 w-fit`}>
-          {!isMe &&
+          ${messageType === "USER" ? `bg-gray-500` : `bg-gray-600`}
+          flex flex-col gap-2.5 rounded-[20px] px-5 py-4 w-fit max-w-full`}>
+          {messageType !== "USER" &&
             <div className={`flex gap-2.5 text-gray-300 jersey text-[14px] font-medium select-none cursor-pointer`}>
               <p
                 className={`
@@ -55,7 +56,15 @@ const Chat: React.FC<ChatProps> = ({
               </p>
             </div>
           }
-          <p className={`text-subhead-16-sb text-gray-50`}>{text}</p>
+
+          <div className={`text-subhead-16-sb text-gray-50 gap-4 flex flex-col`}>
+            {messageType === "USER" ? (
+              <p className={`whitespace-pre-line`}>{text}</p>
+            ) : (
+              <ReactMarkdown>{text}</ReactMarkdown>
+            )}
+          
+          </div>
         </div>
 
       </motion.div>
