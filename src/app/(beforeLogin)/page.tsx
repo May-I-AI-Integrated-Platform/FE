@@ -8,6 +8,7 @@ import useValidate from "@/hooks/useValidate";
 import { axiosInstance } from "@/apis/axiosInstance";
 import { AnimatePresence, motion } from "framer-motion";
 import { AxiosError } from "axios";
+import useModalStore from "@/store/useModalStore";
 
 
 export default function Login() {
@@ -15,6 +16,10 @@ export default function Login() {
   const emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
   const router = useRouter();
+
+  const {
+    setIsAccountModalOpen,
+  } = useModalStore();
 
   const [isEmailValid, setIsEmailValid] = useState(true);
 
@@ -34,7 +39,7 @@ export default function Login() {
 
     } catch (e: unknown) {
       console.log(e)
-      if (e instanceof AxiosError && e.response?.data?.code === 'USER503') {
+      if (e instanceof AxiosError && (e.response?.data?.code === 'USER502' || e.response?.data?.code === 'USER503')) {
         setIsError(true)
       }
     }
@@ -55,6 +60,10 @@ export default function Login() {
   useEffect(() => {
     setIsError(false)
   }, [email, password])
+
+  useEffect(() => {
+    setIsAccountModalOpen(false);
+  }, [])
 
   return (
     <div className={`w-screen h-screen flex flex-col items-center justify-center gap-5`}>
