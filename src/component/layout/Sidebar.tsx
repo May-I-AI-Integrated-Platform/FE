@@ -65,12 +65,20 @@ const Sidebar = () => {
         const tokenList = response?.data?.result?.tokenList;
         setUserEmail(response?.data?.result?.userEmail);
         setUserName(response?.data?.result?.userName);
-        setChatGptToken(tokenList[0].value);
-        setDeepseekToken(tokenList[1].value);
-        setClaudeToken(tokenList[2].value);
-        setGeminiToken(tokenList[3].value);
+      
+        if (response?.data?.result?.tokenList?.length > 0) {
+          setChatGptToken(tokenList[0].value);
+          setDeepseekToken(tokenList[1].value);
+          setClaudeToken(tokenList[2].value);
+          setGeminiToken(tokenList[3].value);
+        }
       } catch (e) {
         console.log(e)
+        try {
+          await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/user/logout`)
+        } catch (error) {
+          console.log(error)
+        }
         router.push('/');
       }
     }
