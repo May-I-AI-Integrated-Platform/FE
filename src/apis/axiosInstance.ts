@@ -9,7 +9,7 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const { config, response: {status}} = error;
 
-    if (status === 419) {
+    if (status === 419 || status === 401) {
       const originRequest = config;
 
       if (!originRequest._retry) {

@@ -76,10 +76,11 @@ const Sidebar = () => {
         console.log(e)
         try {
           await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/user/logout`)
+          router.push('/');
         } catch (error) {
           console.log(error)
+          router.push('/');
         }
-        router.push('/');
       }
     }
 
