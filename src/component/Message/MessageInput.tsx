@@ -11,8 +11,13 @@ interface Message {
   text: string;
 }
 
+interface Messages {
+  isUser: boolean;
+  messages: Message[];
+}
+
 interface ChatInputProps {
-  setNewMessages: Dispatch<SetStateAction<Message[] | null>>;
+  setNewMessages: Dispatch<SetStateAction<Messages[] | null>>;
 }
 
 const MessageInput: React.FC<ChatInputProps> = ({
@@ -40,14 +45,32 @@ const MessageInput: React.FC<ChatInputProps> = ({
         setNewMessages((prev) => [
           ...(prev ?? []),
           {
-            messageType: "USER",
-            text,
+            isUser: true,
+            messages: [
+              {
+                messageType: "USER",
+                text,
+              }
+            ]
           }
         ])
         setText("")
         if (textareaRef.current) {
           textareaRef.current.style.height = "20px";
         }
+
+        setNewMessages((prev) => [
+          ...(prev ?? []),
+          {
+            isUser: false,
+            messages: [
+              {
+                messageType: "ISPENDING",
+                text: "로딩 중",
+              }
+            ]
+          }
+        ])
 
         const response = await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/message`, {
           chatId,
@@ -57,13 +80,24 @@ const MessageInput: React.FC<ChatInputProps> = ({
 
         const messageList = response?.data?.result?.responseDTOList;
 
-        setNewMessages((prev) => [
-          ...(prev ?? []),
-          { 
-            messageType: messageList[0].messageType,
-            text: messageList[0].text,
-          }
-        ])
+        setNewMessages((prev) => {
+
+          if (!prev) return [];
+
+          const updated = prev.map((msg) =>
+            msg.messages[0].messageType === "ISPENDING"
+              ? {
+                isUser: false,
+                messages: messageList.map((item: Message) => ({
+                  messageType: item.messageType,
+                  text: item.text,
+                }))
+              }
+              : msg
+          );
+
+          return updated;
+        })
 
       } catch (e) {
         console.log(e)
@@ -73,7 +107,7 @@ const MessageInput: React.FC<ChatInputProps> = ({
     }
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && text.trim() !== "") {
       e.preventDefault();
       sendMessage();

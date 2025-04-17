@@ -13,9 +13,14 @@ interface Message {
   text: string;
 }
 
+interface Messages {
+  isUser: boolean;
+  messages: Message [];
+}
+
 export default function ChatPage() {
 
-  const [newMessages, setNewMessages] = useState<Message[] | null>(null);
+  const [newMessages, setNewMessages] = useState<Messages[] | null>(null);
 
   const {chatId} = useParams();
 
@@ -25,7 +30,6 @@ export default function ChatPage() {
     
     try {
       const response = await axiosInstance(`${process.env.NEXT_PUBLIC_DOMAIN}/message/${chatId}`);
-
       return response.data.result.messages;
     } catch (e) {
       console.log(e)
@@ -57,17 +61,17 @@ export default function ChatPage() {
           <div 
             ref={messagesDivRef}
             className={`flex flex-col w-full h-full px-8 pt-10 pb-3 gap-3 overflow-auto`}>
-            {prevMessages?.map((item: Message, index: number) => (
+            {prevMessages?.map((item: Messages, index: number) => (
               <Chat
                 key={index}
-                messageType={item.messageType}
-                text={item.text} />
+                isUser={item.isUser}
+                messages={item.messages} />
             ))}
             {newMessages?.map((item, index) => (
               <Chat
                 key={index}
-                messageType={item.messageType}
-                text={item.text}/>
+                isUser={item.isUser}
+                messages={item.messages}/>
             ))}
 
           </div>
