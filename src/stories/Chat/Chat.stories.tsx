@@ -1,14 +1,14 @@
-import Chat from '@/component/Message/Message'; // 실제 컴포넌트 경로
+import Message from '@/component/Message/Message'; // 실제 컴포넌트 경로
 import type { Meta, StoryObj } from '@storybook/react';
  
-const meta: Meta<typeof Chat> = {
+const meta: Meta<typeof Message> = {
   title: 'Chat',
-  component: Chat,
+  component: Message,
   tags: ['autodocs'],
 };
  
 export default meta;
-type Story = StoryObj<typeof Chat>;
+type Story = StoryObj<typeof Message>;
  
 export const Me: Story = {
   args: {

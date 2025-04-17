@@ -14,7 +14,7 @@ interface Messages {
   messages: Message[];
 }
 
-const Chat: React.FC<Messages> = ({
+const Message: React.FC<Messages> = ({
   isUser,
   messages,
 }) => {
@@ -25,11 +25,7 @@ const Chat: React.FC<Messages> = ({
   const currentText = useMessageType(currentModel, messages)
 
   useEffect(() => {
-    console.log(initialModel)
-  }, [initialModel])
-  
-
-  useEffect(() => {
+    if (messages.length > 0)
     switch (messages[0].messageType) {
       case "GPT":
         setInitialMode("ChatGPT")
@@ -145,4 +141,4 @@ const Chat: React.FC<Messages> = ({
   )
 }
 
-export default Chat;
+export default Message;
