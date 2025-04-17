@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect } from "react"
 import { AccountIcon, SidebarIcon } from "../../../public/svgs";
 import useSidebarStorei from "@/store/useSidebarStore";
 import { AnimatePresence, motion } from 'framer-motion';
 import useModalStore from "@/store/useModalStore";
 import AccountModal from "../header/AccountModal";
+import useUserStore from "@/store/useUserStore";
 
 const Header = () => {
 
@@ -15,13 +16,17 @@ const Header = () => {
   } = useSidebarStorei();
 
   const {
+    isAiOn,
+    setIsAiOn,
+  } = useUserStore();
+
+  const {
     setIsAccountModalOpen,
   } = useModalStore();
 
-  const [isChatGptOn, setIsChatGptOn] = useState(false);
-  const [isDeepseekOn, setIsDeepseekOn] = useState(false);
-  const [isClaudeOn, setIsClaudeOn] = useState(false);
-  const [isGeminiOn, setIsGeminiOn] = useState(false);
+  useEffect(() => {
+    setIsSidebarOpen(JSON.parse(localStorage.getItem("isSidebarOpen") || "{ isGptOn: false, isDeepseekOn: false, isClaudeOn: false, isGeminiOn: false"))
+  }, [])
 
   return (
     <div className={`w-full flex absolute justify-between items-center px-10 border-b border-solid border-gray-600 select-none transition-all-300-out`}>
@@ -49,39 +54,59 @@ const Header = () => {
         <div className={`flex gap-4 text-[32px] items-center`}>
           <p
             className={`
-              ${isChatGptOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
+              ${isAiOn.isGptOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
               border-b-2 border-solid  cursor-pointer transition-all-300-out`}
-            onClick={() => setIsChatGptOn(!isChatGptOn)}>
+            onClick={() => setIsAiOn({
+              isGptOn: !isAiOn.isGptOn,
+              isDeepseekOn: isAiOn.isDeepseekOn,
+              isClaudeOn: isAiOn.isClaudeOn,
+              isGeminiOn: isAiOn.isGeminiOn,
+            })}>
             ChatGPT</p>
           <p
             className={`
-              ${isDeepseekOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
+              ${isAiOn.isDeepseekOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
               border-b-2 border-solid cursor-pointer transition-all-300-out`}
-            onClick={() => setIsDeepseekOn(!isDeepseekOn)}>
+            onClick={() => setIsAiOn({
+              isGptOn: isAiOn.isGptOn,
+              isDeepseekOn: !isAiOn.isDeepseekOn,
+              isClaudeOn: isAiOn.isClaudeOn,
+              isGeminiOn: isAiOn.isGeminiOn,
+            })}>
             Deepseek</p>
           <p
             className={`
-              ${isClaudeOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
+              ${isAiOn.isClaudeOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
               border-b-2 border-solid cursor-pointer transition-all-300-out`}
-            onClick={() => setIsClaudeOn(!isClaudeOn)}>
+            onClick={() => setIsAiOn({
+              isGptOn: isAiOn.isGptOn,
+              isDeepseekOn: isAiOn.isDeepseekOn,
+              isClaudeOn: !isAiOn.isClaudeOn,
+              isGeminiOn: isAiOn.isGeminiOn,
+            })}>
             Claude</p>
           <p
             className={`
-              ${isGeminiOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
+              ${isAiOn.isGeminiOn ? `text-point border-point` : `text-gray-300 border-gray-300 hover:text-gray-50 hover:border-gray-50`}
               border-b-2 border-solid cursor-pointer transition-all-300-out`}
-            onClick={() => setIsGeminiOn(!isGeminiOn)}>
+            onClick={() => setIsAiOn({
+              isGptOn: isAiOn.isGptOn,
+              isDeepseekOn: isAiOn.isDeepseekOn,
+              isClaudeOn: isAiOn.isClaudeOn,
+              isGeminiOn: !isAiOn.isGeminiOn,
+            })}>
             Gemini</p>
 
         </div>
         <p>?</p>
       </div>
-      <div 
+      <div
         className={`h-[80px] content-center`}
         onMouseOver={() => setIsAccountModalOpen(true)}
         onMouseOut={() => setIsAccountModalOpen(false)}>
-      <AccountIcon
-        className={`cursor-pointer w-10`}/>
-      <AccountModal />
+        <AccountIcon
+          className={`cursor-pointer w-10`} />
+        <AccountModal />
       </div>
     </div>
   )

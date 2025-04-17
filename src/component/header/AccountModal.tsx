@@ -36,7 +36,7 @@ const AccountModal = () => {
           initial={{ height: 100, opacity: 0 }}
           animate={{ height: 232, opacity: 1 }}
           exit={{ height: 100, opacity: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
           onMouseOver={() => setIsAccountModalOpen(true)}
           onMouseOut={() => setIsAccountModalOpen(false)}
 

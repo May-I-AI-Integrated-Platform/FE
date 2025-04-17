@@ -1,55 +1,95 @@
 'use client'
 
-import Chat from "@/component/Message/Message";
-import ChatInput from "@/component/Message/MessageInput";
-import { useState } from "react";
+import { axiosInstance } from "@/apis/axiosInstance";
+import Message from "@/component/Message/Message";
+import MessageInput from "@/component/Message/MessageInput";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
-interface Chat {
-  id: number;
+interface MessageProp {
+  messageType: string;
   text: string;
-  isMe: boolean;
 }
 
-const PrevChats = [
-  { id: 1, text: "안녕하세요", isMe: true, },
-  { id: 2, text: "안녕하세요!\n무엇이 궁금하신가요?", isMe: false, },
-]
+interface MessagesProp {
+  isUser: boolean;
+  messages: MessageProp[];
+}
 
 export default function ChatPage() {
 
-  const [newChats, setNewChats] = useState<Chat[] | null>(null);
+  const [newMessages, setNewMessages] = useState<MessagesProp[] | null>(null);
+
+  const { chatId } = useParams();
+
+  const messagesDivRef = useRef<HTMLDivElement>(null);
+
+  const getMessages = async () => {
+
+    try {
+      const response = await axiosInstance(`${process.env.NEXT_PUBLIC_DOMAIN}/message/${chatId}`);
+      console.log(response.data.result.messages)
+      return response.data.result.messages;
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  const { data: prevMessages } = useQuery({
+    queryKey: ['getMessages'],
+    queryFn: getMessages,
+  });
+
+  useEffect(() => {
+    if (messagesDivRef.current) {
+      messagesDivRef.current.scrollTo({
+        top: messagesDivRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [newMessages, prevMessages])
 
   return (
 
     <div className={`w-full h-full content-center`}>
-      <div className={`w-full h-full flex items-center justify-center gap-2.5 text-display-24-b text-gray-300 pt-[81px] pb-[112px]`}>
+      <div
+        className={`w-full h-full flex items-center justify-center gap-2.5 text-display-24-b text-gray-300 pt-[81px] pb-[112px]`}>
 
-        {PrevChats.length > 0 || newChats !== null ? (
-          <div className={`flex flex-col w-full h-full px-8 pt-10 pb-3 gap-3 overflow-auto`}>
-            {PrevChats?.map((item) => (
-              <Chat
-                key={item.id}
-                text={item.text}
-                isMe={item.isMe} />
-            ))}
-            {newChats?.map((item) => (
-              <Chat
-                key={item.id}
-                text={item.text}
-                isMe={item.isMe} />
+        {prevMessages?.length > 0 || newMessages !== null ? (
+          <div
+            ref={messagesDivRef}
+            className={`flex flex-col w-full h-full px-8 pt-10 pb-3 gap-3 overflow-auto`}>
+            {prevMessages?.map((item: MessagesProp, index: number) => {
+              if(item.messages.length > 0)
+                return(
+                  <Message
+                    key={index}
+                    isUser={item.isUser}
+                    messages={item.messages} />
+                )
+              else
+                return null;
+            })}
+            {newMessages?.map((item, index) => (
+              <Message
+                key={index}
+                isUser={item.isUser}
+                messages={item.messages} />
             ))}
 
           </div>
         ) : (
           <p>
-            뭘 물어볼래
+            무엇이 궁금하신가요?
           </p>
         )}
 
 
       </div>
-      <ChatInput 
-        setNewChats={setNewChats}/>
+      <MessageInput
+        setNewMessages={setNewMessages} />
     </div >
   );
 }

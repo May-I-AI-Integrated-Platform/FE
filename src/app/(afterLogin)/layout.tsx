@@ -23,12 +23,12 @@ export default function RootLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className={`flex`}>
+      <div className={`w-screen`}>
         <Sidebar />
         <div
           className={`
         ${isSidebarOpen ? `lg:ml-[250px]` : `ml-0`}
-        w-screen h-screen transition-all-600-out relative`}>
+        w-[cal(100vw-250px)] h-screen transition-all-600-out relative`}>
           <Header />
           {children}
           <SettingModal />
